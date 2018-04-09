@@ -10,7 +10,7 @@ import java.util.Map.Entry;
 public class RORtbl {
     // I omit all instance variables. you can use hash table, for example.
     // The table would have a key by ROR.
-    static Hashtable<RemoteObjectRef, Object> table = new Hashtable<RemoteObjectRef, Object>();
+    static Hashtable<RemoteObjectRef, Object> table = new Hashtable<>();
     int counter;
 
     // make a new table.

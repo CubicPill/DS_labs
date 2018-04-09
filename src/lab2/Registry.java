@@ -1,26 +1,25 @@
 package lab2;
 
-import java.util.*;
 import java.net.*;
 import java.io.*;
 
 public class Registry {
     // registry holds its port and host, and connects to it each time.
-    String Host;
-    int Port;
+    String host;
+    int port;
 
     // ultra simple constructor.
     public Registry(String IPAdr, int PortNum) {
-        Host = IPAdr;
-        Port = PortNum;
+        host = IPAdr;
+        port = PortNum;
     }
 
-    // returns the ROR (if found) or null (if else)
-    public RemoteObjectRef lookup(String serviceName) throws IOException {
+    // returns the stub (if ror found and localization successful) or null (if else)
+    public Remote lookup(String serviceName) throws IOException {
         // open socket.
         // it assumes registry is already located by locate registry.
         // you should usually do try-catch here (and later).
-        Socket soc = new Socket(Host, Port);
+        Socket soc = new Socket(host, port);
 
         System.out.println("socket made.");
 
@@ -63,6 +62,7 @@ public class Registry {
 
             // make ROR.
             ror = new RemoteObjectRef(ro_IPAdr, ro_PortNum, ro_ObjKey, ro_InterfaceName);
+
         } else {
             System.out.println("it is not found!.");
 
@@ -73,14 +73,18 @@ public class Registry {
         soc.close();
 
         // return ROR.
-        return ror;
+
+        if (ror != null) {
+            return (Remote) ror.localize();
+        }
+        return null;
     }
 
     // rebind a ROR. ROR can be null. again no check, on this or whatever.
     // I hate this but have no time.
     public void rebind(String serviceName, RemoteObjectRef ror) throws IOException {
         // open socket. same as before.
-        Socket soc = new Socket(Host, Port);
+        Socket soc = new Socket(host, port);
 
         // get TCP streams and wrap them.
         BufferedReader in = new BufferedReader(new InputStreamReader(soc.getInputStream()));

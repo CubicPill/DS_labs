@@ -47,10 +47,8 @@ public class RemoteObjectRef {
             RORtbl.table.put(this, o);
 
             InvocationHandler handler = new RORInvocationHandler((Remote) o);
-            Remote proxy = (Remote)Proxy.newProxyInstance(o.getClass().getClassLoader(), o.getClass().getInterfaces(), handler);
-            return proxy;
+            return (Remote)Proxy.newProxyInstance(o.getClass().getClassLoader(), o.getClass().getInterfaces(), handler);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 

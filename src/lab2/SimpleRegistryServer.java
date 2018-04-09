@@ -31,7 +31,7 @@ public class SimpleRegistryServer {
         System.out.println("server socket created.\n");
 
         // create a table of keys (service names) and ROR.
-        Hashtable<String, RemoteObjectRef> table = new Hashtable<String, RemoteObjectRef>();
+        Hashtable<String, RemoteObjectRef> table = new Hashtable<>();
 
         // loop: accept, receive request, reply, close.
         // again no error checking: this is not robust at all.
@@ -57,75 +57,82 @@ public class SimpleRegistryServer {
 
             String command = in.readLine();
             // branch: commands are either lookup or rebind.
-            if (command.equals("lookup")) {
-                System.out.println("it is lookup request.");
+            switch (command) {
+                case "lookup": {
+                    System.out.println("it is lookup request.");
 
-                String serviceName = in.readLine();
+                    String serviceName = in.readLine();
 
-                System.out.println("The service name is " + serviceName + ".");
+                    System.out.println("The service name is " + serviceName + ".");
 
-                // tests if it is in the table.
-                // if it is gets it.
-                if (table.containsKey(serviceName)) {
-                    System.out.println("the service found.");
+                    // tests if it is in the table.
+                    // if it is gets it.
+                    if (table.containsKey(serviceName)) {
+                        System.out.println("the service found.");
 
-                    RemoteObjectRef ror = (RemoteObjectRef) table.get(serviceName);
+                        RemoteObjectRef ror = (RemoteObjectRef) table.get(serviceName);
 
-                    System.out.println("ROR is " + ror.IP_adr + "," + ror.Port + "," + ror.Obj_Key + ","
-                            + ror.Remote_Interface_Name + ".");
+                        System.out.println("ROR is " + ror.IP_adr + "," + ror.Port + "," + ror.Obj_Key + ","
+                                + ror.Remote_Interface_Name + ".");
 
-                    out.println("found");
-                    out.println(ror.IP_adr);
-                    out.println(Integer.toString(ror.Port));
-                    out.println(Integer.toString(ror.Obj_Key));
-                    out.println(ror.Remote_Interface_Name);
+                        out.println("found");
+                        out.println(ror.IP_adr);
+                        out.println(Integer.toString(ror.Port));
+                        out.println(Integer.toString(ror.Obj_Key));
+                        out.println(ror.Remote_Interface_Name);
 
-                    System.out.println("ROR was sent.\n");
-                } else {
-                    System.out.println("the service not found.\n");
+                        System.out.println("ROR was sent.\n");
+                    } else {
+                        System.out.println("the service not found.\n");
 
-                    out.println("not found");
+                        out.println("not found");
+                    }
+                    break;
                 }
-            } else if (command.equals("rebind")) {
-                System.out.println("it is rebind request.");
+                case "rebind": {
+                    System.out.println("it is rebind request.");
 
-                // again no error check.
-                String serviceName = in.readLine();
+                    // again no error check.
+                    String serviceName = in.readLine();
 
-                System.out.println("the service name is " + serviceName + ".");
+                    System.out.println("the service name is " + serviceName + ".");
 
-                // get ROR data.
-                // I do not serialise.
-                // Go elementary, that is my slogan.
+                    // get ROR data.
+                    // I do not serialise.
+                    // Go elementary, that is my slogan.
 
-                System.out.println("I got the following ror:");
+                    System.out.println("I got the following ror:");
 
-                String IP_adr = in.readLine();
-                int Port = Integer.parseInt(in.readLine());
-                int Obj_Key = Integer.parseInt(in.readLine());
-                String Remote_Interface_Name = in.readLine();
+                    String IP_adr = in.readLine();
+                    int Port = Integer.parseInt(in.readLine());
+                    int Obj_Key = Integer.parseInt(in.readLine());
+                    String Remote_Interface_Name = in.readLine();
 
-                System.out.println("IP address: " + IP_adr);
-                System.out.println("port num:" + Port);
-                System.out.println("object key:" + Obj_Key);
-                System.out.println("Interface Name:" + Remote_Interface_Name);
+                    System.out.println("IP address: " + IP_adr);
+                    System.out.println("port num:" + Port);
+                    System.out.println("object key:" + Obj_Key);
+                    System.out.println("Interface Name:" + Remote_Interface_Name);
 
-                // make ROR.
-                RemoteObjectRef ror = new RemoteObjectRef(IP_adr, Port, Obj_Key, Remote_Interface_Name);
+                    // make ROR.
+                    RemoteObjectRef ror = new RemoteObjectRef(IP_adr, Port, Obj_Key, Remote_Interface_Name);
 
-                // put it in the table.
-                table.remove(serviceName);
-                Object res = table.put(serviceName, ror);
+                    // put it in the table.
+                    table.remove(serviceName);
+                    Object res = table.put(serviceName, ror);
 
-                System.out.println("ROR is put in the table.\n");
+                    System.out.println("ROR is put in the table.\n");
 
-                // ack.
-                out.println("bound");
-            } else if (command.equals("who are you?")) {
-                out.println("I am a simple registry.");
-                System.out.println("I was asked who I am, so I answered.\n");
-            } else {
-                System.out.println("I got an imcomprehensive message.\n");
+                    // ack.
+                    out.println("bound");
+                    break;
+                }
+                case "who are you?":
+                    out.println("I am a simple registry.");
+                    System.out.println("I was asked who I am, so I answered.\n");
+                    break;
+                default:
+                    System.out.println("I got an imcomprehensive message.\n");
+                    break;
             }
 
             // close the socket.

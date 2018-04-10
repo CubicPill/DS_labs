@@ -1,4 +1,4 @@
 package lab2;
 
-public class RemoteException extends Exception {
+class RemoteException extends Exception {
 }

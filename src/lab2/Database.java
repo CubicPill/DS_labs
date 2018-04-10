@@ -2,7 +2,7 @@ package lab2;
 
 import java.sql.*;
 
-public class Database {
+class Database {
     private Connection connection;
 
     public Database(String url, String usn, String pwd) {
@@ -19,7 +19,7 @@ public class Database {
         initDB();
     }
 
-    public void initDB() {
+    private void initDB() {
         // create tables
         String sql = "CREATE TABLE credentials (username VARCHAR(20) PRIMARY KEY, hashed CHAR(32) NOT NULL);";
         try (Statement st = connection.createStatement()) {

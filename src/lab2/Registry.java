@@ -5,8 +5,8 @@ import java.io.*;
 
 public class Registry {
     // registry holds its port and host, and connects to it each time.
-    String host;
-    int port;
+    private final String host;
+    private final int port;
 
     // ultra simple constructor.
     public Registry(String IPAdr, int PortNum) {

@@ -3,7 +3,7 @@ package lab2;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-public class UnicastRemoteObject {
+class UnicastRemoteObject {
     public static RemoteObjectRef exportObject(Object s, int port) throws RemoteException {
         try {
             InetAddress addr = InetAddress.getLocalHost();

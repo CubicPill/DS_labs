@@ -5,10 +5,10 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
 
 public class RemoteObjectRef implements Serializable, Remote {
-    String ip;
-    int port;
-    long objectKey;
-    String interfaceName;
+    final String ip;
+    final int port;
+    final long objectKey;
+    final String interfaceName;
 
     public RemoteObjectRef(String ip, int port, long objectKey, String interfaceName) {
         this.ip = ip;

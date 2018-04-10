@@ -8,10 +8,10 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class Server implements RemoteInterface {
-    private Database db;
+    private final Database db;
     private MessageDigest md;
 
-    public Server() {
+    private Server() {
         db = new Database("jdbc:mysql://data-cn-0.vedbs.link:3306/vedbs_1348", "vedbs_1348", "aSOZUkvcLT");
         System.out.println("DB connection is up");
         try {

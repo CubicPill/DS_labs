@@ -7,10 +7,10 @@ import java.util.Map.Entry;
 // This can be done easily, for example by using a counter.
 // We also assume a remote object implements only one interface, which is a remote interface.
 
-public class RORtbl {
+class RORtbl {
     // I omit all instance variables. you can use hash table, for example.
     // The table would have a key by ROR.
-    static Hashtable<RemoteObjectRef, Object> table = new Hashtable<>();
+    static final Hashtable<RemoteObjectRef, Object> table = new Hashtable<>();
 
     // make a new table.
 

@@ -1,16 +1,17 @@
 package lab2;
 
+import java.util.Objects;
 import java.util.Scanner;
 
-public class Client {
+class Client {
     private static RemoteInterface stub = null;
-    private static Scanner s = new Scanner(System.in);
+    private static final Scanner s = new Scanner(System.in);
 
-    public Client() {
+    private Client() {
 
         try {
             Registry reg = LocateRegistry.getRegistry("localhost",23333);
-            stub = (RemoteInterface) reg.lookup("Server");
+            stub = (RemoteInterface) Objects.requireNonNull(reg).lookup("Server");
 
         } catch (Exception e) {
             System.err.println("Client exception thrown: " + e.toString());

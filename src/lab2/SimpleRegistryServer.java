@@ -14,7 +14,7 @@ import java.io.*;
 //   (3) whoareyou --> I am simple registry etc.
 // it is used through SimpleRegistry and LocateSimpleRegistry.
 
-public class SimpleRegistryServer {
+class SimpleRegistryServer {
 
     public static void main(String args[]) throws IOException {
         // I do no checking. A user supplies one argument,
@@ -70,7 +70,7 @@ public class SimpleRegistryServer {
                     if (table.containsKey(serviceName)) {
                         System.out.println("the service found.");
 
-                        RemoteObjectRef ror = (RemoteObjectRef) table.get(serviceName);
+                        RemoteObjectRef ror = table.get(serviceName);
 
                         System.out.println("ROR is " + ror.ip + "," + ror.port + "," + ror.objectKey + ","
                                 + ror.interfaceName + ".");

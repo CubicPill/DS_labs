@@ -4,11 +4,11 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.Scanner;
 
-public class Client {
+class Client {
     private static RemoteInterface stub = null;
-    private static Scanner s = new Scanner(System.in);
+    private static final Scanner s = new Scanner(System.in);
 
-    public Client() {
+    private Client() {
 
         try {
             Registry reg = LocateRegistry.getRegistry("localhost");

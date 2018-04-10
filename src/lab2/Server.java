@@ -3,12 +3,13 @@ package lab2;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Objects;
 
 public class Server implements RemoteInterface {
-    private Database db;
+    private final Database db;
     private MessageDigest md;
 
-    public Server() {
+    private Server() {
         db = new Database("jdbc:mysql://data-cn-0.vedbs.link:3306/vedbs_1374", "vedbs_1374", "LNwYp4wpuy");
         System.out.println("DB connection is up");
         try {
@@ -24,7 +25,7 @@ public class Server implements RemoteInterface {
         return new String(md.digest(ori.getBytes()));
     }
 
-    public boolean registerAccount(String username, String password) throws RemoteException {
+    public boolean registerAccount(String username, String password) {
         // register account
         System.out.printf(">>> Register: %s\n", username);
 
@@ -42,7 +43,7 @@ public class Server implements RemoteInterface {
         return false;
     }
 
-    public boolean login(String username, String password) throws RemoteException {
+    public boolean login(String username, String password) {
         // handle login request
         System.out.printf(">>> Login: %s\n", username);
         if (username.length() > 20) {
@@ -63,7 +64,7 @@ public class Server implements RemoteInterface {
             Server s = new Server();
             RemoteObjectRef stub = UnicastRemoteObject.exportObject(s, "127.0.0.1", 1100);
             Registry r = LocateRegistry.getRegistry("localhost", 23333);
-            r.rebind("Server", stub);
+            Objects.requireNonNull(r).rebind("Server", stub);
             System.out.println("Server is up");
         } catch (Exception e) {
             e.printStackTrace();

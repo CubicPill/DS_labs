@@ -24,7 +24,7 @@ public class SimpleRegistryServer {
         if (args.length > 1) {
             port = Integer.parseInt(args[0]);
         } else {
-            port = 1099;
+            port = 23333;
         }
         // create a socket.
         ServerSocket serverSoc = new ServerSocket(port);
@@ -72,14 +72,14 @@ public class SimpleRegistryServer {
 
                         RemoteObjectRef ror = (RemoteObjectRef) table.get(serviceName);
 
-                        System.out.println("ROR is " + ror.IP_adr + "," + ror.Port + "," + ror.Obj_Key + ","
-                                + ror.className + ".");
+                        System.out.println("ROR is " + ror.ip + "," + ror.port + "," + ror.objectKey + ","
+                                + ror.interfaceName + ".");
 
                         out.println("found");
-                        out.println(ror.IP_adr);
-                        out.println(Integer.toString(ror.Port));
-                        out.println(Integer.toString(ror.Obj_Key));
-                        out.println(ror.className);
+                        out.println(ror.ip);
+                        out.println(Integer.toString(ror.port));
+                        out.println(Long.toString(ror.objectKey));
+                        out.println(ror.interfaceName);
 
                         System.out.println("ROR was sent.\n");
                     } else {

@@ -21,19 +21,15 @@ public class Registry {
         // you should usually do try-catch here (and later).
         Socket soc = new Socket(host, port);
 
-        System.out.println("socket made.");
 
         // get TCP streams and wrap them.
         BufferedReader in = new BufferedReader(new InputStreamReader(soc.getInputStream()));
         PrintWriter out = new PrintWriter(soc.getOutputStream(), true);
 
-        System.out.println("stream made.");
 
         // it is locate request, with a service name.
-        out.println("lookup");
         out.println(serviceName);
 
-        System.out.println("command and service name sent.");
 
         // branch according to the answer.
         String res = in.readLine();
@@ -41,30 +37,24 @@ public class Registry {
 
         if (res.equals("found")) {
 
-            System.out.println("it is found!.");
 
             // receive ROR data, witout check.
             String ro_IPAdr = in.readLine();
 
-            System.out.println(ro_IPAdr);
 
             int ro_PortNum = Integer.parseInt(in.readLine());
 
-            System.out.println(ro_PortNum);
 
             int ro_ObjKey = Integer.parseInt(in.readLine());
 
-            System.out.println(ro_ObjKey);
 
             String ro_InterfaceName = in.readLine();
 
-            System.out.println(ro_InterfaceName);
 
             // make ROR.
             ror = new RemoteObjectRef(ro_IPAdr, ro_PortNum, ro_ObjKey, ro_InterfaceName);
 
         } else {
-            System.out.println("it is not found!.");
 
             ror = null;
         }
@@ -93,10 +83,10 @@ public class Registry {
         // it is a rebind request, with a service name and ROR.
         out.println("rebind");
         out.println(serviceName);
-        out.println(ror.IP_adr);
-        out.println(ror.Port);
-        out.println(ror.Obj_Key);
-        out.println(ror.className);
+        out.println(ror.ip);
+        out.println(ror.port);
+        out.println(ror.objectKey);
+        out.println(ror.interfaceName);
 
         // it also gets an ack, but this is not used.
         String ack = in.readLine();

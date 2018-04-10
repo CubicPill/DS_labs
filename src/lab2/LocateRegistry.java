@@ -10,6 +10,8 @@ public class LocateRegistry {
     // actually the registry is just a pair of host IP and port.
     // inefficient? well you can change it as you like.
     // for the rest, you can see SimpleRegistry.java.
+
+
     public static Registry getRegistry(String host, int port) {
         // open socket.
         try {

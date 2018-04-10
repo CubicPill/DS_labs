@@ -44,7 +44,7 @@ public class RORtbl {
         Entry<RemoteObjectRef, Object> entry;
         while (it.hasNext()) {
             entry = it.next();
-            if (entry.getKey().Remote_Interface_Name.equals(name)) {
+            if (entry.getKey().className.equals(name)) {
                 return entry.getValue();
 
             }

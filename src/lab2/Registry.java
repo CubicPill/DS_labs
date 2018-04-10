@@ -96,7 +96,7 @@ public class Registry {
         out.println(ror.IP_adr);
         out.println(ror.Port);
         out.println(ror.Obj_Key);
-        out.println(ror.Remote_Interface_Name);
+        out.println(ror.className);
 
         // it also gets an ack, but this is not used.
         String ack = in.readLine();

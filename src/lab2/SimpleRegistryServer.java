@@ -73,13 +73,13 @@ public class SimpleRegistryServer {
                         RemoteObjectRef ror = (RemoteObjectRef) table.get(serviceName);
 
                         System.out.println("ROR is " + ror.IP_adr + "," + ror.Port + "," + ror.Obj_Key + ","
-                                + ror.Remote_Interface_Name + ".");
+                                + ror.className + ".");
 
                         out.println("found");
                         out.println(ror.IP_adr);
                         out.println(Integer.toString(ror.Port));
                         out.println(Integer.toString(ror.Obj_Key));
-                        out.println(ror.Remote_Interface_Name);
+                        out.println(ror.className);
 
                         System.out.println("ROR was sent.\n");
                     } else {

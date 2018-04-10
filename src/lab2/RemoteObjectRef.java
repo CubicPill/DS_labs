@@ -8,27 +8,31 @@ public class RemoteObjectRef {
     String IP_adr;
     int Port;
     int Obj_Key;
-    String Remote_Interface_Name;
+    String className;
 
     public RemoteObjectRef(String ip, int port, int obj_key, String riname) {
         IP_adr = ip;
         Port = port;
         Obj_Key = obj_key;
-        Remote_Interface_Name = riname;
+        className = riname;
     }
 
+    public static Remote exportObject(Object s, int port) {
+        return null;
+    }
     // this method is important, since it is a stub creator.
     //
+
     public Object localize() {
         // Implement this as you like: essentially you should
         // create a new stub object and returns it.
         // Assume the stub class has the name e.g.
         //
-        // Remote_Interface_Name + "_stub".
+        // className + "_stub".
         //
         // Then you can create a new stub as follows:
         //
-        // Class c = Class.forName(Remote_Interface_Name + "_stub");
+        // Class c = Class.forName(className + "_stub");
         // Object o = c.newinstance()
         //
         // For this to work, your stub should have a constructor without
@@ -42,12 +46,12 @@ public class RemoteObjectRef {
         // Here let it return null.
         Class c;
         try {
-            c = Class.forName(Remote_Interface_Name+"Impl");
+            c = Class.forName(className);
             Object o = c.newInstance();
             RORtbl.table.put(this, o);
 
             InvocationHandler handler = new RORInvocationHandler((Remote) o);
-            return (Remote)Proxy.newProxyInstance(o.getClass().getClassLoader(), o.getClass().getInterfaces(), handler);
+            return (Remote) Proxy.newProxyInstance(o.getClass().getClassLoader(), o.getClass().getInterfaces(), handler);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
         }

@@ -22,12 +22,9 @@ class LocateRegistry {
             if ((in.readLine()).equals("I am a simple registry.")) {
                 return new Registry(host, port);
             } else {
-                System.out.println("somebody is there but not a  registry!");
                 return null;
             }
         } catch (Exception e) {
-            System.out.println("nobody is there!" + e.toString());
-            e.printStackTrace();
             return null;
         }
     }

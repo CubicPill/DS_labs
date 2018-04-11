@@ -8,12 +8,11 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 
 class RORInvocationHandler implements InvocationHandler {
-    private final Remote remote;
+    private final RemoteObjectRef ror;
 
-    public RORInvocationHandler(final Remote remote) {
+    public RORInvocationHandler( final RemoteObjectRef ror) {
         super();
-        this.remote = remote;
-
+        this.ror = ror;
     }
 
 
@@ -23,17 +22,14 @@ class RORInvocationHandler implements InvocationHandler {
 
         Socket socket = new Socket();
         socket.setSoLinger(true, 10);
-        socket.connect(new InetSocketAddress("127.0.0.1", 1100));
+        socket.connect(new InetSocketAddress(ror.ip, ror.port));
 
         ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream());
 
 
-        RemoteObjectRef ror = RORtbl.findROR(this.remote);
 
 
-        if (ror == null) {
-            throw new RemoteException();
-        }
+
         output.writeUTF(ror.interfaceName);
         output.writeUTF(method.getName());
         output.writeObject(method.getParameterTypes());

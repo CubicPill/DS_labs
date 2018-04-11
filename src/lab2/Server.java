@@ -63,7 +63,7 @@ public class Server implements RemoteInterface {
         try {
             Server s = new Server();
             RemoteObjectRef stub = UnicastRemoteObject.exportObject(s, "127.0.0.1", 1100);
-            Registry r = LocateRegistry.getRegistry("localhost", 23333);
+            Registry r = LocateRegistry.getRegistry("127.0.0.1", 23333);
             Objects.requireNonNull(r).rebind("Server", stub);
             System.out.println("Server is up");
         } catch (Exception e) {

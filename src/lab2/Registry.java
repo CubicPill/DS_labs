@@ -4,17 +4,14 @@ import java.net.*;
 import java.io.*;
 
 public class Registry {
-    // registry holds its port and host, and connects to it each time.
     private final String host;
     private final int port;
 
-    // ultra simple constructor.
-    public Registry(String IPAdr, int PortNum) {
-        host = IPAdr;
-        port = PortNum;
+    public Registry(String ipAddr, int port) {
+        host = ipAddr;
+        this.port = port;
     }
 
-    // returns the stub (if ror found and localization successful) or null (if else)
     public Remote lookup(String serviceName) throws IOException {
         // open socket.
         // it assumes registry is already located by locate registry.
@@ -26,7 +23,7 @@ public class Registry {
         BufferedReader in = new BufferedReader(new InputStreamReader(soc.getInputStream()));
         PrintWriter out = new PrintWriter(soc.getOutputStream(), true);
 
-
+        out.println("lookup");
         // it is locate request, with a service name.
         out.println(serviceName);
 
@@ -39,20 +36,20 @@ public class Registry {
 
 
             // receive ROR data, witout check.
-            String ro_IPAdr = in.readLine();
+            String rorIP = in.readLine();
 
 
-            int ro_PortNum = Integer.parseInt(in.readLine());
+            int rorPort = Integer.parseInt(in.readLine());
 
 
-            int ro_ObjKey = Integer.parseInt(in.readLine());
+            int rorObjKey = Integer.parseInt(in.readLine());
 
 
-            String ro_InterfaceName = in.readLine();
+            String rorInterfaceName = in.readLine();
 
 
             // make ROR.
-            ror = new RemoteObjectRef(ro_IPAdr, ro_PortNum, ro_ObjKey, ro_InterfaceName);
+            ror = new RemoteObjectRef(rorIP, rorPort, rorObjKey, rorInterfaceName);
 
         } else {
 
@@ -70,8 +67,7 @@ public class Registry {
         return null;
     }
 
-    // rebind a ROR. ROR can be null. again no check, on this or whatever.
-    // I hate this but have no time.
+
     public void rebind(String serviceName, RemoteObjectRef ror) throws IOException {
         // open socket. same as before.
         Socket soc = new Socket(host, port);
@@ -89,7 +85,8 @@ public class Registry {
         out.println(ror.interfaceName);
 
         // it also gets an ack, but this is not used.
-        String ack = in.readLine();
+        // Just ignore this
+        in.readLine();
 
         // close the socket.
         soc.close();

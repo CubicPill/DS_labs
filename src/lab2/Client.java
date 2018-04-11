@@ -10,7 +10,7 @@ class Client {
     private Client() {
 
         try {
-            Registry reg = LocateRegistry.getRegistry("localhost",23333);
+            Registry reg = LocateRegistry.getRegistry("127.0.0.1", 23333);
             stub = (RemoteInterface) Objects.requireNonNull(reg).lookup("Server");
 
         } catch (Exception e) {

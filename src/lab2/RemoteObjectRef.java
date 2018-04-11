@@ -25,11 +25,11 @@ public class RemoteObjectRef implements Serializable, Remote {
 
         try {
             c = Class.forName(this.getClass().getPackage().getName() + "." + interfaceName + "Impl");
-
+            // get RemoteInterfaceImpl
             Object o = c.newInstance();
-            RORtbl.table.put(this, o);
 
-            InvocationHandler handler = new RORInvocationHandler((Remote) o);
+            InvocationHandler handler = new RORInvocationHandler(this);
+            // create InvocationHandler, return proxy object
             return Proxy.newProxyInstance(o.getClass().getClassLoader(), o.getClass().getInterfaces(), handler);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
             e.printStackTrace();

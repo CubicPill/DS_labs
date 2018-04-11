@@ -19,6 +19,7 @@ class UnicastRemoteObject {
         Skeleton skeleton = new Skeleton(obj, ror);
         skeleton.setDaemon(false);
         skeleton.start();
+        //start a stand-alone thread to handle client's request
 
         return ror;
     }

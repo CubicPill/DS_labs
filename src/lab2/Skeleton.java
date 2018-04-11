@@ -32,7 +32,9 @@ class Skeleton extends Thread {
                 Object[] args = (Object[]) in.readObject();
                 Object result;
                 try {
-                    result = this.obj.getClass().getDeclaredMethod(methodName, argTypes).invoke(this.obj, args);
+                    Class c = this.obj.getClass();
+                    assert Class.forName(interfaceName).isAssignableFrom(c);
+                    result = c.getDeclaredMethod(methodName, argTypes).invoke(this.obj, args);
                 } catch (InvocationTargetException e) {
                     result = e.getCause();
                 }

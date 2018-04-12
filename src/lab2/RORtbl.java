@@ -5,7 +5,7 @@ import java.util.Map.Entry;
 
 
 class RORtbl {
-
+    // this is not used
     private static final Hashtable<RemoteObjectRef, Object> table = new Hashtable<>();
 
 

@@ -27,16 +27,23 @@ class Skeleton extends Thread {
 
 
                 String interfaceName = in.readUTF();
+                //read interface name
                 String methodName = in.readUTF();
+                // method name
                 Class<?>[] argTypes = (Class<?>[]) in.readObject();
+                // argument types
                 Object[] args = (Object[]) in.readObject();
+                // args
                 Object result;
                 try {
                     Class c = this.obj.getClass();
                     assert Class.forName(interfaceName).isAssignableFrom(c);
+                    // verify interface is the same
                     result = c.getDeclaredMethod(methodName, argTypes).invoke(this.obj, args);
+                    // get result
                 } catch (InvocationTargetException e) {
                     result = e.getCause();
+                    // if exception thrown, return the exception
                 }
                 out.writeObject(result);
 

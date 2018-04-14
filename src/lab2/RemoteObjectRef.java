@@ -1,10 +1,10 @@
 package lab2;
 
-import java.io.Serializable;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
 
-public class RemoteObjectRef implements Serializable, Remote {
+public class RemoteObjectRef {
     final String ip;
     final int port;
     final long objectKey;

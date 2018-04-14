@@ -10,7 +10,7 @@ import java.net.Socket;
 class RORInvocationHandler implements InvocationHandler {
     private final RemoteObjectRef ror;
 
-    public RORInvocationHandler( final RemoteObjectRef ror) {
+    public RORInvocationHandler(final RemoteObjectRef ror) {
         super();
         this.ror = ror;
     }
@@ -27,9 +27,6 @@ class RORInvocationHandler implements InvocationHandler {
         ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream());
 
 
-
-
-
         output.writeUTF(ror.interfaceName);
         output.writeUTF(method.getName());
         output.writeObject(method.getParameterTypes());
@@ -38,8 +35,10 @@ class RORInvocationHandler implements InvocationHandler {
 
         ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
         Object result = input.readObject();
+        // get result
         if (result instanceof Throwable) {
             throw (Throwable) result;
+            // if result is exception, throw it
         }
         return result;
 

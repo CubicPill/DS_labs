@@ -10,7 +10,7 @@ public class Server implements RemoteInterface {
     private MessageDigest md;
 
     private Server() {
-        db = new Database("jdbc:mysql://data-cn-0.vedbs.link:3306/vedbs_1374", "vedbs_1374", "LNwYp4wpuy");
+        db = new Database("jdbc:mysql://data-cn-0.vedbs.link:3306/vedbs_1389", "vedbs_1389", "P4paIfWxd8");
         System.out.println("DB connection is up");
         try {
             md = MessageDigest.getInstance("MD5");

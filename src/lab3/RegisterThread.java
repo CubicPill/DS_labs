@@ -51,7 +51,13 @@ public class RegisterThread extends Thread {
                 stub.registerAccount(getRandomString(10), "testregister");
                 totalSuccess += 1;
             } catch (UndeclaredThrowableException e) {
-                System.err.println(String.format("%-12s get UndeclaredThrowableException", this.getName()));
+                if(e.getCause().getClass().getName().equals("java.net.ConnectException")){
+                    System.err.println(String.format("%-12s get ConnectException", this.getName()));
+
+                }else{
+                    System.err.println(String.format("%-12s get UndeclaredThrowableException", this.getName()));
+
+                }
 
             } catch (RemoteException e) {
                 System.err.println(String.format("%-12s get RemoteException", this.getName()));

@@ -10,20 +10,15 @@ import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 
-public class ConnFactory {  
-    
-    private ConnectionFactory factory;  
-      
-    public ConnFactory(){  
-//        try {  
-//            Context context = new JndiFactory().getJndiContext();  
-//            this.factory = (ConnectionFactory) context.lookup("con1");  
-//        } catch (NamingException e) {             
-            this.factory = new ActiveMQConnectionFactory(ActiveMQConnection.DEFAULT_BROKER_URL);  
-//        }  
-    }  
-      
-    public Connection createConnection() throws JMSException{  
-        return factory.createConnection();  
-    }     
+public class ConnFactory {
+
+    private ConnectionFactory factory;
+
+    public ConnFactory() {
+        this.factory = new ActiveMQConnectionFactory(ActiveMQConnection.DEFAULT_BROKER_URL);
+    }
+
+    public Connection createConnection() throws JMSException {
+        return factory.createConnection();
+    }
 }  

@@ -16,6 +16,7 @@ class Client {
     private static final Scanner s = new Scanner(System.in);
     private static ConnFactory cf = new ConnFactory();
 
+
     private Client() {
 
         try {

@@ -1,6 +1,5 @@
 package lab4;
 
-
 import javax.jms.Connection;
 import javax.jms.JMSException;
 import javax.jms.Message;
@@ -27,10 +26,12 @@ public class Consumer implements MessageListener {
 
     public void start() throws JMSException {
         //使用Consumer之前，必须调用conn的start方法建立连接。  
+        conn.setClientID(client_id);
         conn.start();
 
         session = conn.createSession(false, Session.AUTO_ACKNOWLEDGE);
-        consumer = session.createDurableSubscriber(session.createTopic(dest), client_id);
+        consumer = session.createDurableSubscriber(session.createTopic(dest), name);
+
         consumer.setMessageListener(this);
 
     }

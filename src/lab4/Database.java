@@ -43,6 +43,7 @@ class Database {
     }
 
     public void subscribeToTopics(String username, String[] topics) {
+        // for procedure, see .sql and .mwb file
         String sql_insert = "INSERT INTO topics (topic_name) VALUES (?);";
         String sql_subs = "CALL subscribe_to_topic(?, ?);";
 

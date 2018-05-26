@@ -25,7 +25,6 @@ public class Consumer implements MessageListener {
     }
 
     public void start() throws JMSException {
-        //使用Consumer之前，必须调用conn的start方法建立连接。  
         conn.setClientID(client_id);
         conn.start();
 

@@ -1,13 +1,7 @@
 package lab4;
 
-import org.apache.activemq.ActiveMQConnection;
-import org.apache.activemq.ActiveMQConnectionFactory;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
-
-import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.util.Arrays;
 import java.util.Scanner;
 import javax.jms.*;
 
@@ -103,6 +97,7 @@ class Client {
     }
 
     private void afterLoginProcedure(String username) {
+        // after login, let user choose options
         System.out.println("Choose your option:");
         System.out.println("1. View subscribed topics.");
         System.out.println("2. Publish on a topic.");
@@ -117,7 +112,7 @@ class Client {
     }
 
     private void viewFeedProcedure(String username) {
-
+        // view subscribed messages (enter dead loop)
         System.out.println("Start getting yur feed...");
         try {
             String[] topics = stub.getTopicList(username);
@@ -125,6 +120,7 @@ class Client {
                 System.out.println("Not subscribed to any topics");
                 afterLoginProcedure(username);
             }
+            assert topics != null;
             for (String t : topics) {
                 Consumer c = new Consumer(cf.createConnection(), t, username + "_" + t, username + "_" + t);
                 c.start();
@@ -137,11 +133,11 @@ class Client {
     }
 
     private void publishOnTopicProcedure(String username) {
+        // publish topic
         System.out.println("Input the topic name you want to publish on:");
         String topic = s.next();
 
         System.out.println("Input the content:");
-        s.nextLine();
         String content = s.nextLine();
         try {
             Producer p = new Producer(cf.createConnection(), topic, username);
@@ -153,7 +149,8 @@ class Client {
             System.out.println("Error!");
             e.printStackTrace();
             System.exit(1);
-        }
+        }        s.nextLine();
+
         afterLoginProcedure(username);
 
     }

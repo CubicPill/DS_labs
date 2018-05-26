@@ -12,7 +12,7 @@ public class Server implements RemoteInterface {
     private MessageDigest md;
 
     private Server() {
-        db = new Database("jdbc:mysql://data-cn-0.vedbs.link:3306/vedbs_1348", "vedbs_1348", "aSOZUkvcLT");
+        db = new Database("jdbc:mysql://data-us-1.vedbs.link:3306/vedbs_1407", "vedbs_1407", "M41Nza6brp");
         System.out.println("DB connection is up");
         try {
             md = MessageDigest.getInstance("MD5");
@@ -46,9 +46,15 @@ public class Server implements RemoteInterface {
     }
 
     @Override
-    public boolean[] subscribeToTopics(String[] topics) {
-        return new boolean[0];
+    public String[] getTopicList(String username) throws RemoteException {
+        return db.getSubscribedTopics(username);
     }
+
+    @Override
+    public void subscribeToTopic(String username, String[] topics) throws RemoteException {
+        db.subscribeToTopics(username, topics);
+    }
+
 
     public boolean login(String username, String password) throws RemoteException {
         // handle login request
@@ -66,15 +72,6 @@ public class Server implements RemoteInterface {
         return false;
     }
 
-    @Override
-    public String[] getTopicFeeds(String topic) {
-        return new String[0];
-    }
-
-    @Override
-    public boolean publishOnTopic(String topic, String content) {
-        return false;
-    }
 
     public static void main(String args[]) {
         try {

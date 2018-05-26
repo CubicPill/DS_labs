@@ -6,11 +6,11 @@ import java.rmi.RemoteException;
 interface RemoteInterface extends Remote {
     boolean registerAccount(String username, String password) throws RemoteException;
 
-    boolean[] subscribeToTopics(String[] topics);
+    String[] getTopicList(String username) throws RemoteException;
+
+    void subscribeToTopic(String username, String[] topics) throws RemoteException;
 
     boolean login(String username, String password) throws RemoteException;
 
-    String[] getTopicFeeds(String topic);
 
-    boolean publishOnTopic(String topic, String content);
 }
